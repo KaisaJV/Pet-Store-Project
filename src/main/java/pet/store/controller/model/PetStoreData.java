@@ -42,6 +42,27 @@ public class PetStoreData {
 		
 	}
 	
+	//use of overloaded constructor to practice using a stream that excludes customers and employees
+	public PetStoreData (PetStore petStore, boolean includeCustomersAndEmployees) {
+		petStoreId = petStore.getPetStoreId();
+		petStoreName = petStore.getPetStoreName();
+		petStoreAddress = petStore.getPetStoreAddress();
+		petStoreCity = petStore.getPetStoreCity();
+		petStoreState = petStore.getPetStoreState();
+		petStoreZip = petStore.getPetStoreZip();
+		petStorePhone = petStore.getPetStorePhone();
+		
+		if (includeCustomersAndEmployees) {
+			for(Customer customer : petStore.getCustomers()) {
+				customers.add(new PetStoreCustomer(customer));
+			}
+			
+			for(Employee employee : petStore.getEmployees()) {
+				employees.add(new PetStoreEmployee(employee));
+			}
+		}
+	}
+	
 	@Data
 	@NoArgsConstructor
 	public static class PetStoreCustomer {
@@ -60,7 +81,7 @@ public class PetStoreData {
 	
 	@Data
 	@NoArgsConstructor
-	public static class PetStoreEmployee {
+	public static class PetStoreEmployee { //inner class inside PetStoreData
 		private Long employeeId;
 		private String employeeFirstName;
 		private String employeeLastName;
